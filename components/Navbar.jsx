@@ -35,6 +35,7 @@ const menuItems = [
 
 export default function () {
   const currentUserHook = useCurrentUser();
+
   const loginModal = useLoginModal();
 
   const pathname = usePathname();
@@ -87,7 +88,7 @@ export default function () {
         </ul>
         <div className="w-[1px] h-1/2 bg-gray-700"></div>
         <div className="flex w-auto items-center justify-end gap-4 select-none">
-          {currentUserHook.data ? (
+          {!currentUserHook.isError ? (
             <div className="flex w-56 items-center bg-twitter-500 px-1 py-1 rounded-full">
               {/* <img
                 className="rounded"

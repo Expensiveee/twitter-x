@@ -16,7 +16,7 @@ export default function UserProfile({ params }) {
     return <Spinner />;
   }
 
-  if (userHook.isError) {
+  if (userHook.isLoading == false && userHook.isError) {
     return (
       <div className="flex flex-col gap-4  w-full items-center justify-center mt-20">
         <h1 className="text-center w-5/6">

@@ -12,7 +12,7 @@ const useUsers = (size) => {
   return {
     data,
     isLoading: isLoading,
-    isError: error,
+    isError: data?.error || !data,
     mutate,
   };
 };

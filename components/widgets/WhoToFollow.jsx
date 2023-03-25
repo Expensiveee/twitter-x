@@ -8,13 +8,13 @@ import Spinner from "@components/Spinner";
 import Avatar from "@components/users/Avatar";
 
 export default function WhoToFollow() {
-  const usersHook = useUsers(3);
   const currentUserHook = useCurrentUser();
+  const usersHook = useUsers(3);
 
   const loginModal = useLoginModal();
 
   const handleClick = () => {
-    if (currentUserHook.data) return;
+    if (currentUserHook.data && !currentUserHook.isError) return;
 
     loginModal.onOpen();
   };

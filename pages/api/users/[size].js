@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     const { size } = req.query;
 
     if (!size || typeof size !== "string") {
-      throw new Error("Invalid size");
+      return res.json({ error: "Invalid size" });
     }
 
     // If size is "all", return all users
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         },
       });
 
-      return res.status(200).json(allUsers);
+      return res.json(allUsers);
     }
 
     // If size is not "all", return users based on size
@@ -27,9 +27,10 @@ export default async function handler(req, res) {
       },
     });
 
-    res.status(200).json(users);
+    res.json(users);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Internal Server Error" });
+
+    return res.json({ error: "Internal Server Error" });
   }
 }
