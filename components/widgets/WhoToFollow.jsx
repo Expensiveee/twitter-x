@@ -1,11 +1,23 @@
 "use client";
 
 import useUsers from "@hooks/useUsers";
+import useCurrentUser from "@hooks/useCurrentUser";
+import useLoginModal from "@hooks/useLoginModal";
 
 import Spinner from "@components/Spinner";
+import Avatar from "@components/users/Avatar";
 
 export default function WhoToFollow() {
   const usersHook = useUsers(3);
+  const currentUserHook = useCurrentUser();
+
+  const loginModal = useLoginModal();
+
+  const handleClick = () => {
+    if (currentUserHook.data) return;
+
+    loginModal.onOpen();
+  };
 
   return (
     <div className="flex px-4 py-4 flex-col items-center max-h-screen h-fit w-full bg-twitter-myProfile rounded-xl overflow-hidden">
@@ -24,11 +36,10 @@ export default function WhoToFollow() {
                 className="flex w-full items-center justify-between mt-6"
               >
                 <div className="flex ml-2">
-                  <img
-                    className="w-10 h-10 mr-2 rounded-full"
-                    src={user.avatar}
-                  />
-                  <div className="flex flex-col">
+                  <div className="w-10 h-10 relative">
+                    <Avatar username={user?.username} />
+                  </div>
+                  <div className="flex flex-col ml-2">
                     <h1 className="text-md truncate text-twitter-text1">
                       {user.name}
                     </h1>
@@ -38,7 +49,10 @@ export default function WhoToFollow() {
                   </div>
                 </div>
                 <div className="flex">
-                  <button className="select-none bg-white text-black px-4 py-2 font-medium text-sm rounded-full w-full">
+                  <button
+                    onClick={handleClick}
+                    className="select-none active:bg-slate-300 transition bg-white text-black px-4 py-2 font-medium text-sm rounded-full w-full"
+                  >
                     Follow
                   </button>
                 </div>

@@ -8,6 +8,10 @@ import Spinner from "@components/Spinner";
 export default function () {
   const currentUserHook = useCurrentUser();
 
+  if (currentUserHook.isLoading == false && currentUserHook.isError) {
+    return null;
+  }
+
   return (
     <div className="flex w-full flex-col items-center h-auto min-h-max bg-twitter-myProfile rounded-xl">
       {currentUserHook.isLoading ? (
