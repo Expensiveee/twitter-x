@@ -9,13 +9,6 @@ export default function ({ className, username, custom }) {
         fill
         style={{ objectFit: "cover" }}
       />
-      {/* {withAvatar ? (
-        <div
-          className={`${avatarSize} rounded-full absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}
-        >
-          <Avatar username={username} className={`px-2 py-2 ${bgColor}`} />
-        </div>
-      ) : null} */}
     </div>
   );
 }

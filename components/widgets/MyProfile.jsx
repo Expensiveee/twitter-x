@@ -1,5 +1,7 @@
 "use client";
 
+import Avatar from "@components/users/Avatar";
+
 import useCurrentUser from "@hooks/useCurrentUser";
 
 import Banner from "@components/users/Banner";
@@ -18,7 +20,7 @@ export default function () {
         <Spinner />
       ) : (
         <>
-          <div className="w-full h-24">
+          <div className="w-full h-24 relative">
             <Banner
               className={"rounded-t-xl"}
               bgColor={"bg-twitter-myProfile"}
@@ -26,6 +28,14 @@ export default function () {
               avatarSize={"w-32 h-32"}
               username={currentUserHook.data.username}
             />
+            <div
+              className={`w-28 h-28 rounded-full absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}
+            >
+              <Avatar
+                username={currentUserHook.data.username}
+                className={`w-28 h-28 relative px-2 py-2 bg-twitter-myProfile`}
+              />
+            </div>
           </div>
           <h1 className="mt-16 capitalize text-twitter-text1 text-xl font-bold">
             {currentUserHook.data.name}
