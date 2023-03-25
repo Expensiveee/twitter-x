@@ -1,5 +1,6 @@
 "use client";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import Spinner from "./Spinner";
 
 export default function ({
   isOpen,
@@ -88,13 +89,17 @@ export default function ({
           </div>
           <div className="relative p-10 flex-auto">{body}</div>
           <div className="flex flex-col gap-2 p-10">
-            <button
-              className="w-full disabled:cursor-not-allowed py-3 bg-white text-black rounded-full"
-              disabled={disabled}
-              onClick={handleSubmit}
-            >
-              {actionLabel}
-            </button>
+            {disabled ? (
+              <Spinner />
+            ) : (
+              <button
+                className="w-full disabled:cursor-not-allowed py-3 bg-white text-black rounded-full"
+                disabled={disabled}
+                onClick={handleSubmit}
+              >
+                {actionLabel}
+              </button>
+            )}
             {footer}
           </div>
         </div>

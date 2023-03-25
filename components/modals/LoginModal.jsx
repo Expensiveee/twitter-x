@@ -36,7 +36,7 @@ export default function LoginModal() {
         return;
       }
 
-      router.refresh();
+      router.replace("/");
 
       toast.success("Logged in");
       loginModal.onClose();
