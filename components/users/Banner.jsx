@@ -1,13 +1,6 @@
-import Avatar from "@components/users/Avatar";
 import Image from "next/image";
 
-export default function ({
-  withAvatar,
-  bgColor,
-  avatarSize,
-  className,
-  username,
-}) {
+export default function ({ className, username, custom }) {
   return (
     <div className="w-full h-full flex select-none relative">
       <Image
@@ -16,13 +9,13 @@ export default function ({
         fill
         style={{ objectFit: "cover" }}
       />
-      {withAvatar ? (
+      {/* {withAvatar ? (
         <div
           className={`${avatarSize} rounded-full absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}
         >
           <Avatar username={username} className={`px-2 py-2 ${bgColor}`} />
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }

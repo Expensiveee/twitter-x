@@ -11,7 +11,7 @@ const useUser = (username) => {
   return {
     data,
     isLoading: isLoading,
-    isError: data?.error || error,
+    isError: error,
     mutate,
   };
 };
