@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  email    String? @unique
+  name     String?
+  username String? @unique
+
+  bio String?
+
+  image  String?
+  avatar String?
+  banner String?
+
+  hashedPassword String?
+
+  followingIds     String[] @db.ObjectId
+  hasNotifications Boolean? @default(false)
+
+  posts         Post[]
+  comments      Comment[]
+  notifications Notification[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  body String
+
+  authorId String @db.ObjectId
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+  likesIds String[]  @db.ObjectId
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Notification Notification[]
+}
+
+model Comment {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  body String
+
+  authorId String @db.ObjectId
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  postId String @db.ObjectId
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Notification Notification[]
+}
+
+model Notification {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  body String
+
+  userId    String  @db.ObjectId
+  postId    String? @db.ObjectId
+  commentId String? @db.ObjectId
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Post      Post?    @relation(fields: [postId], references: [id])
+  Comment   Comment? @relation(fields: [commentId], references: [id])
+}
