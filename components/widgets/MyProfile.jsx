@@ -8,7 +8,7 @@ import Spinner from "@components/Spinner";
 export default function () {
   const currentUserHook = useCurrentUser();
 
-  if (currentUserHook.isLoading == false && currentUserHook.isError) {
+  if (currentUserHook.isError) {
     return null;
   }
 

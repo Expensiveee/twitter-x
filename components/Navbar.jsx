@@ -9,11 +9,13 @@ import {
   HomeIcon,
   EnvelopeIcon,
   BellIcon,
-  ChevronDownIcon,
+  ArrowDownOnSquareIcon,
 } from "@heroicons/react/20/solid";
 
 import Avatar from "@components/users/Avatar";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 const menuItems = [
   {
@@ -40,6 +42,11 @@ export default function () {
 
   const pathname = usePathname();
   const router = useRouter();
+
+  const handelSignOut = () => {
+    signOut();
+    toast.dismiss("Signed out");
+  };
 
   return (
     <nav className="sticky z-40 top-0 w-full mb-2 h-20 bg-twitter-100 flex justify-between">
@@ -88,7 +95,7 @@ export default function () {
         </ul>
         <div className="w-[1px] h-1/2 bg-gray-700"></div>
         <div className="flex w-auto items-center justify-end gap-4 select-none">
-          {!currentUserHook.isError ? (
+          {!currentUserHook.isLoading && !currentUserHook.isError ? (
             <div className="flex w-56 items-center bg-twitter-500 px-1 py-1 rounded-full">
               {/* <img
                 className="rounded"
@@ -98,12 +105,15 @@ export default function () {
                 alt="User's Avatar"
               /> */}
               <div className="w-[32px] h-[32px] px-4 relative">
-                <Avatar username={currentUserHook.data.username} />
+                <Avatar username={currentUserHook.data?.username} />
               </div>
               <span className="w-full h-full capitalize truncate font-semibold text-md text-twitter-400 ml-2">
-                {currentUserHook.data.name}
+                {currentUserHook.data?.name}
               </span>
-              <ChevronDownIcon className="w-8 h-8 mr-2 text-gray-400" />
+              <ArrowDownOnSquareIcon
+                onClick={handelSignOut}
+                className="w-8 h-8 mr-2 transition hover:text-red-500 cursor-pointer text-gray-400"
+              />
             </div>
           ) : (
             <button

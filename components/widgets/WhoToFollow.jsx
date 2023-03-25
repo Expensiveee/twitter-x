@@ -14,7 +14,7 @@ export default function WhoToFollow() {
   const loginModal = useLoginModal();
 
   const handleClick = () => {
-    if (currentUserHook.data && !currentUserHook.isError) return;
+    if (!currentUserHook.isError) return;
 
     loginModal.onOpen();
   };
@@ -40,10 +40,10 @@ export default function WhoToFollow() {
                     <Avatar username={user?.username} />
                   </div>
                   <div className="flex flex-col ml-2">
-                    <h1 className="text-md truncate text-twitter-text1">
+                    <h1 className="text-md truncate max-w-[120px] text-twitter-text1">
                       {user.name}
                     </h1>
-                    <span className="text-sm truncate max-w-[180px] text-twitter-text2">
+                    <span className="text-sm truncate max-w-[120px] text-twitter-text2">
                       @{user.username}
                     </span>
                   </div>

@@ -12,11 +12,11 @@ export default function UserProfile({ params }) {
     window.history.back();
   };
 
-  if (userHook.isLoading === true) {
+  if (userHook.isLoading) {
     return <Spinner />;
   }
 
-  if (userHook.isLoading == false && userHook.isError) {
+  if (userHook.isError) {
     return (
       <div className="flex flex-col gap-4  w-full items-center justify-center mt-20">
         <h1 className="text-center w-5/6">

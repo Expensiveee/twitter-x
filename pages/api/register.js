@@ -21,11 +21,16 @@ export default async function handler(req, res) {
       },
     });
 
-    console.log(user);
-
     return res.json(user);
   } catch (error) {
-    console.log(error);
+    if (error.code === "P2002" && error.meta.target.includes("email")) {
+      return res.json({ error: "Email already in use" });
+    }
+
+    if (error.code === "P2002" && error.meta.target.includes("username")) {
+      return res.json({ error: "Username already in use" });
+    }
+
     return res.json({ error: "Internal Server Error" });
   }
 }

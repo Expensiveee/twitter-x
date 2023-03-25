@@ -1,13 +1,18 @@
 "use client";
 import { useState } from "react";
 
+import { toast } from "react-hot-toast";
+
 import useLoginModal from "@hooks/useLoginModal";
 import useRegiserModal from "@hooks/useRegisterModal";
 
 import Modal from "@components/Modal";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginModal() {
+  const router = useRouter();
+
   const loginModal = useLoginModal();
   const registerModal = useRegiserModal();
 
@@ -20,11 +25,20 @@ export default function LoginModal() {
     try {
       setIsLoading(true);
 
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         email,
         password,
+        redirect: false,
       });
 
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
+
+      router.refresh();
+
+      toast.success("Logged in");
       loginModal.onClose();
     } catch (e) {
       console.log(e);
