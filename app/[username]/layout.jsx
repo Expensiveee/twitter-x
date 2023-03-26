@@ -11,14 +11,8 @@ export async function generateMetadata({ params }) {
       title: `${res.data.username}'s profile on TwitterX`,
       description: res.data.bio,
       twitter: {
-        images: {
-          title: `${res.data?.username}'s profile on TwitterX`,
-          description: res.data?.bio ?? "No Bio",
-          card: "summary_large_image",
-          url:
-            res.data?.banner ?? "https://twitter-x.expensiveee.me/banner.jpg",
-          alt: "User Banner ",
-        },
+        card: "summary_large_image",
+        images: [res.data.banner],
       },
     };
   } catch (error) {
@@ -27,7 +21,7 @@ export async function generateMetadata({ params }) {
       description: "T'as déjà K avec un 12 ?",
       twitter: {
         card: "summary_large_image",
-        images: ["https://twitter-x.expensiveee.me/banner.jpg"],
+        images: ["/banner.jpg"],
       },
     };
   }
