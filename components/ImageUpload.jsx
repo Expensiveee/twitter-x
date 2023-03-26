@@ -28,7 +28,7 @@ export default function ({ onChange, value, label, disabled }) {
     disabled,
     accept: {
       "image/jpeg": [],
-      "imag/png": [],
+      "image/png": [],
     },
   });
 
