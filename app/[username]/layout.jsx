@@ -8,10 +8,13 @@ export async function generateMetadata({ params }) {
     );
 
     return {
-      title: res.data.username,
+      title: `${res.data.username}'s profile on TwitterX`,
       description: res.data.bio,
       twitter: {
         images: {
+          title: `${res.data.username}'s profile on TwitterX`,
+          description: res.data.bio,
+          card: "summary_large_image",
           url: res.data.banner,
           alt: "User Banner ",
         },
@@ -23,6 +26,7 @@ export async function generateMetadata({ params }) {
       description: "T'as déjà K avec un 12 ?",
       twitter: {
         images: {
+          card: "app",
           url: "/banner.jpg",
           alt: "Default Banner ",
         },
