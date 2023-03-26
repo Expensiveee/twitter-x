@@ -3,7 +3,7 @@ import axios from "axios";
 
 export async function generateMetadata({ params }) {
   try {
-    await axios.get(
+    const res = await axios.get(
       `https://twitter-x.expensiveee.me/api/user/${params.username}`
     );
 
