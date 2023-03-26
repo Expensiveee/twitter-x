@@ -16,6 +16,12 @@ import Avatar from "@components/users/Avatar";
 import Tweet from "@components/Tweet/Tweet";
 import WhoToFollow from "@components/widgets/WhoToFollow";
 
+export async function generateMetadata({ params }) {
+  const userHook = useUser(params?.username);
+
+  return { title: userHook?.data.username, description: userHook?.data.bio };
+}
+
 export default function ({ params }) {
   const userHook = useUser(params?.username);
   const currentUser = useCurrentUser();
@@ -56,10 +62,6 @@ export default function ({ params }) {
 
   return (
     <>
-      <Head>
-        <title>${userHook.data?.username}\'s profile</title>
-        <meta name="description" content={userHook.data?.bio} key="desc" />
-      </Head>
       <div className="flex gap-4 flex-row w-full min-h-96 relative">
         <div className="flex flex-col w-4/6 h-auto">
           <div className="w-full h-40">
