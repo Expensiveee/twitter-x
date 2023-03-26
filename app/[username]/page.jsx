@@ -129,7 +129,7 @@ export default function ({ params }) {
       </div>
       <div className="w-full flex-col mt-2 gap-10 rounded-b-2xl flex items-center justify-center h-auto py-10 bg-twitter-200">
         <div className="flex w-full h-auto justify-center items-center gap-4">
-          <h1 className="text-white max-w-sm break-words text-lg">
+          <h1 className="text-white max-w-sm break-words text-center text-lg">
             {userHook.data?.bio ?? "No Bio"}
           </h1>
         </div>
