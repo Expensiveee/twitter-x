@@ -11,32 +11,34 @@ import {
   ListBulletIcon,
 } from "@heroicons/react/20/solid";
 
-import useCurrentUser from "@hooks/useCurrentUser";
+import useUserCurrent from "@hooks/user/useUserCurrent";
 
 import Avatar from "@components/users/Avatar";
 import Spinner from "@components/Spinner";
-import usePosts from "@hooks/usePosts";
+import usePostsAll from "@hooks/post/usePostsAll";
 
 export default function ({}) {
   const [loading, setLoading] = useState(false);
   const [tweetBody, setTweetBody] = useState("");
 
-  const currentUser = useCurrentUser();
-  const posts = usePosts();
+  const currentUser = useUserCurrent();
+  const allPosts = usePostsAll(30);
 
   const handleClick = async () => {
     if (loading) return;
 
+    if (allPosts.isLoading) return toast.error("Please wait for posts to load");
+
     try {
       setLoading(true);
 
-      await axios.post("/api/posts/create", {
+      const newPost = await axios.post("/api/posts/create", {
         body: tweetBody,
       });
       setTweetBody("");
       toast.success("Tweeted");
 
-      posts.mutate();
+      allPosts.mutate([newPost.data, ...allPosts.data]);
     } catch (error) {
       console.log(error);
       if (error.response) return toast.error(error.response.data.error);

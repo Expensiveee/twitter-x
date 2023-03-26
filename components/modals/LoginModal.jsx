@@ -3,16 +3,16 @@ import { useState } from "react";
 
 import { toast } from "react-hot-toast";
 
-import useLoginModal from "@hooks/useLoginModal";
-import useRegiserModal from "@hooks/useRegisterModal";
+import useModalLogin from "@hooks/modal/useModalLogin";
+import useModalRegister from "@hooks/modal/useModalRegister";
 
 import Modal from "@components/Modal";
 import { signIn } from "next-auth/react";
 import Router from "next/router";
 
 export default function LoginModal() {
-  const loginModal = useLoginModal();
-  const registerModal = useRegiserModal();
+  const loginModal = useModalLogin();
+  const registerModal = useModalRegister();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

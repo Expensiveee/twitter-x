@@ -5,15 +5,15 @@ import { toast } from "react-hot-toast";
 
 import { signIn } from "next-auth/react";
 
-import useRegiserModal from "@hooks/useRegisterModal";
-import useLoginModal from "@hooks/useLoginModal";
+import useModalRegister from "@hooks/modal/useModalRegister";
+import useModalLogin from "@hooks/modal/useModalLogin";
 
 import Modal from "@components/Modal";
 import axios from "axios";
 
 export default function RegisterModal() {
-  const registerModal = useRegiserModal();
-  const loginModal = useLoginModal();
+  const registerModal = useModalRegister();
+  const loginModal = useModalLogin();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ export default function RegisterModal() {
     try {
       setLoading(true);
 
-      await axios.post("/api/register", {
+      await axios.post("/api/auth/register", {
         email,
         password,
         name,

@@ -4,7 +4,7 @@ import axios from "axios";
 export async function generateMetadata({ params }) {
   try {
     const res = await axios.get(
-      `https://twitter-x.expensiveee.me/api/user/find/${params.username}`
+      `${process.env.NEXTAUTH_URL}/api/user/find/${params.username}`
     );
 
     return {
@@ -12,9 +12,7 @@ export async function generateMetadata({ params }) {
       description: res.data.bio,
       twitter: {
         card: "summary_large_image",
-        images: [
-          `https://twitter-x.expensiveee.me/api/image/banner/${params.username}`,
-        ],
+        images: [`/api/image/banner/${params.username}`],
       },
     };
   } catch (error) {

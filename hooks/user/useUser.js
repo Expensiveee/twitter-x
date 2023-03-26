@@ -6,13 +6,12 @@ import fetcher from "@libs/fetcher";
 
 const useUser = (username) => {
   const { data, error, isLoading, mutate } = useSWR(
-    username ? `user/find/${username}` : null,
+    `user/find/${username}`,
     fetcher,
     {
       shouldRetryOnError: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
-      revalidateIfStale: true,
     }
   );
 

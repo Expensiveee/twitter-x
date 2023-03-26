@@ -1,15 +1,19 @@
 "use client";
+
 import useSWR from "swr";
 
 import fetcher from "@libs/fetcher";
 
-const useUsers = (size) => {
+const usePostsUser = (username) => {
   const { data, error, isLoading, mutate } = useSWR(
-    size ? `users/${size}` : `users/all`,
+    `posts/find/${username}`,
     fetcher,
     {
+      revalidateOnMount: true,
+
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
+      shouldRetryOnError: false,
     }
   );
 
@@ -21,4 +25,4 @@ const useUsers = (size) => {
   };
 };
 
-export default useUsers;
+export default usePostsUser;

@@ -2,8 +2,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
-import useLoginModal from "@hooks/useLoginModal";
-import useCurrentUser from "@hooks/useCurrentUser";
+import useModalLogin from "@hooks/modal/useModalLogin";
+import useUserCurrent from "@hooks/user/useUserCurrent";
 
 import {
   HomeIcon,
@@ -37,26 +37,26 @@ const menuItems = [
 ];
 
 export default function () {
-  const currentUserHook = useCurrentUser();
+  const currentUser = useUserCurrent();
 
-  const loginModal = useLoginModal();
+  const loginModal = useModalLogin();
 
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUserHook.isLoading && currentUserHook.data?.username) {
+    if (!currentUser.isLoading && currentUser.data?.username) {
       toast.success(
         <div>
           Welcome back{" "}
           <span className="font-semibold capitalize">
-            {currentUserHook.data?.username}
+            {currentUser.data?.username}
           </span>{" "}
           !
         </div>
       );
     }
-  }, [currentUserHook.isLoading]);
+  }, [currentUser.isLoading]);
 
   const handelSignOut = () => {
     signOut();
@@ -115,11 +115,11 @@ export default function () {
         </ul>
         <div className="w-[1px] h-1/2 bg-gray-700"></div>
         <div className="flex  w-auto items-center justify-end gap-4 select-none">
-          {!currentUserHook.isLoading && !currentUserHook.isError ? (
-            <Link href={currentUserHook.data?.username}>
+          {!currentUser.isLoading && !currentUser.isError ? (
+            <Link href={currentUser.data?.username}>
               <div
                 className={`flex max-w-[180px] w-fit items-center transition cursor-pointer px-1 py-1 rounded-full ${
-                  pathname !== `/${currentUserHook.data?.username}`
+                  pathname !== `/${currentUser.data?.username}`
                     ? "hover:bg-gray-800 bg-twitter-500 text-twitter-400"
                     : "bg-white text-black"
                 }`}
@@ -127,23 +127,23 @@ export default function () {
                 <div className="w-[32px] h-[32px] px-4 relative">
                   <Avatar
                     className={"rounded-full"}
-                    username={currentUserHook.data?.username}
-                    src={currentUserHook.data?.avatar}
+                    username={currentUser.data?.username}
+                    src={currentUser.data?.avatar}
                   />
                 </div>
                 <span
                   className={`w-full h-full capitalize truncate font-semibold text-sm  ml-2 ${
-                    pathname !== `/${currentUserHook.data?.username}`
+                    pathname !== `/${currentUser.data?.username}`
                       ? "hidden"
                       : "block"
                   } `}
                 >
-                  {currentUserHook.data?.username}
+                  {currentUser.data?.username}
                 </span>
                 <ArrowDownOnSquareIcon
                   onClick={handelSignOut}
                   className={`w-8 h-8 mr-2 transition hover:text-red-500 cursor-pointer text-twitter-300 ${
-                    pathname !== `/${currentUserHook.data?.username}`
+                    pathname !== `/${currentUser.data?.username}`
                       ? "hidden"
                       : "block"
                   }`}

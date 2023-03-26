@@ -14,6 +14,10 @@ export default async function handler(req, res) {
         body,
         authorId: currentUser.id,
       },
+      include: {
+        author: true,
+        comments: true,
+      },
     });
 
     return res.status(200).json(post);

@@ -1,12 +1,12 @@
 "use client";
 
-import useCurrentUser from "@hooks/useCurrentUser";
+import useUserCurrent from "@hooks/user/useUserCurrent";
 
 import Spinner from "@components/Spinner";
 import Avatar from "@components/users/Avatar";
 
 export default function FriendsActivity() {
-  const currentUser = useCurrentUser();
+  const currentUser = useUserCurrent();
 
   if (currentUser.isError) return;
 

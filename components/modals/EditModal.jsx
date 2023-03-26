@@ -5,17 +5,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import useCurrentUser from "@hooks/useCurrentUser";
-import useUser from "@hooks/useUser";
-import useEditModal from "@hooks/useEditModal";
+import useUserCurrent from "@hooks/user/useUserCurrent";
+import useModalEdit from "@hooks/modal/useModalEdit";
 
 import Modal from "@components/Modal";
 import ImageUpload from "@components/ImageUpload";
 
 export default function () {
-  const editModal = useEditModal();
-  const currentUser = useCurrentUser();
-  const userHook = useUser(currentUser.data?.username);
+  const editModal = useModalEdit();
+  const currentUser = useUserCurrent();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,17 +39,23 @@ export default function () {
     try {
       setIsLoading(true);
 
+      //Dont send same values
+      if (
+        name === currentUser.data?.name &&
+        bio === currentUser.data?.bio &&
+        avatar === currentUser.data?.avatar &&
+        banner === currentUser.data?.banner
+      )
+        return;
+
       await axios.patch("/api/user/edit", {
         name,
         bio,
         avatar,
         banner,
       });
-      await userHook.mutate();
-      if (currentUser.data?.username === userHook.data?.username) {
-        await currentUser.mutate();
-      }
 
+      await currentUser.mutate();
       toast.success("Updated");
 
       editModal.onClose();

@@ -1,8 +1,8 @@
 "use client";
 
-import useUsers from "@hooks/useUsers";
-import useCurrentUser from "@hooks/useCurrentUser";
-import useLoginModal from "@hooks/useLoginModal";
+import useUsersAll from "@hooks/user/useUsersAll";
+import useUserCurrent from "@hooks/user/useUserCurrent";
+import useModalLogin from "@hooks/modal/useModalLogin";
 
 import Spinner from "@components/Spinner";
 import Avatar from "@components/users/Avatar";
@@ -10,13 +10,13 @@ import Avatar from "@components/users/Avatar";
 import Link from "next/link";
 
 export default function WhoToFollow() {
-  const currentUserHook = useCurrentUser();
-  const usersHook = useUsers(2);
+  const currentcurrentUser = useUserCurrent();
+  const usersAll = useUsersAll(4);
 
-  const loginModal = useLoginModal();
+  const loginModal = useModalLogin();
 
   const handleClick = () => {
-    if (!currentUserHook.isError) return;
+    if (!currentcurrentUser.isError) return;
 
     loginModal.onOpen();
   };
@@ -27,13 +27,13 @@ export default function WhoToFollow() {
         Who To Follow
       </h1>
 
-      {usersHook.isLoading ? (
+      {usersAll.isLoading ? (
         <div className="py-10">
           <Spinner size={10} />
         </div>
       ) : (
         <div className="w-full h-full flex flex-col scrollbar-thin scrollbar-thumb-twitter-text2 scrollbar-track-gray-700 scroll-smooth overflow-auto">
-          {usersHook.data?.map((user, index) => {
+          {usersAll.data?.map((user, index) => {
             return (
               <Link href={user?.username} key={index}>
                 <div className="flex active:scale-95 px-2 py-2 rounded-xl w-full items-center justify-between mt-3 cursor-pointer transition hover:bg-twitter-500">

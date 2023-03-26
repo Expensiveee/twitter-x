@@ -2,21 +2,21 @@
 
 import Avatar from "@components/users/Avatar";
 
-import useCurrentUser from "@hooks/useCurrentUser";
+import useUserCurrent from "@hooks/user/useUserCurrent";
 
 import Banner from "@components/users/Banner";
 import Spinner from "@components/Spinner";
 
 export default function () {
-  const currentUserHook = useCurrentUser();
+  const currentcurrentUser = useUserCurrent();
 
-  if (currentUserHook.isError) {
+  if (currentcurrentUser.isError) {
     return null;
   }
 
   return (
     <div className="flex w-full flex-col items-center h-auto min-h-max bg-twitter-myProfile rounded-xl">
-      {currentUserHook.isLoading ? (
+      {currentcurrentUser.isLoading ? (
         <div className="py-10">
           <Spinner size={10} />
         </div>
@@ -25,26 +25,26 @@ export default function () {
           <div className="w-full h-24 relative">
             <Banner
               className={"rounded-t-xl"}
-              src={currentUserHook.data?.banner}
+              src={currentcurrentUser.data?.banner}
             />
             <div
               className={`w-28 h-28 rounded-full absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}
             >
               <Avatar
-                src={currentUserHook.data?.avatar}
-                username={currentUserHook.data?.username}
+                src={currentcurrentUser.data?.avatar}
+                username={currentcurrentUser.data?.username}
                 className={`px-2 py-2 rounded-full bg-twitter-myProfile`}
               />
             </div>
           </div>
           <h1 className="mt-16 text-center capitalize text-twitter-text1 text-xl font-bold">
-            {currentUserHook.data.name}
+            {currentcurrentUser.data.name}
           </h1>
           <h3 className="mt-1 text-center text-sm text-twitter-text2">
-            @{currentUserHook.data.username}
+            @{currentcurrentUser.data.username}
           </h3>
           <h2 className="mt-4 px-4 text-center text-sm text-twitter-text1 mb-4">
-            {currentUserHook.data.bio || (
+            {currentcurrentUser.data.bio || (
               <i className="text-neutral-300">No bio</i>
             )}
           </h2>

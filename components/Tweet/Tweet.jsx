@@ -1,11 +1,10 @@
 import ReactTimeAgo from "react-time-ago";
-
-import Avatar from "@components/users/Avatar";
-
 import Link from "next/link";
 import axios from "axios";
-import { toast } from "react-hot-toast";
 
+import { useState } from "react";
+
+import { toast } from "react-hot-toast";
 import {
   CheckCircleIcon,
   HeartIcon,
@@ -13,48 +12,49 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   TrashIcon,
 } from "@heroicons/react/20/solid";
-import useCurrentUser from "@hooks/useCurrentUser";
-import useLoginModal from "@hooks/useLoginModal";
-import usePosts from "@hooks/usePosts";
 
-export default function ({
-  showDelete = false,
-  id,
-  body,
-  createdAt,
-  author,
-  likesIds,
-  comments,
-  retweets = 0,
-  isVerified = false,
-  isLiked = false,
-  isRetweedted = false,
-  isCommented = false,
-}) {
+import useUserCurrent from "@hooks/user/useUserCurrent";
+import useModalLogin from "@hooks/modal/useModalLogin";
+
+import Avatar from "@components/users/Avatar";
+import Spinner from "@components/Spinner";
+
+export default function ({ showDelete = false, tweet, hook }) {
+  let { isRetweeted, isCommented, isLiked } = false;
+
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const { id, body, createdAt, author, isVerified } = tweet;
   if (!id) {
+    toast.error("Error loading tweet");
     return "No Tweets";
   }
 
-  const loginModal = useLoginModal();
-  const currentUser = useCurrentUser();
-  const posts = usePosts(author.username);
+  const loginModal = useModalLogin();
+  const currentUser = useUserCurrent();
 
   const handleAction = (type) => {
     if (currentUser.isError) return loginModal.onOpen();
   };
 
   const handleDelete = async () => {
+    if (deleteLoading) return;
+
     try {
+      setDeleteLoading(true);
       await axios.delete(`/api/posts/delete/${id}`);
 
       toast.success("Tweet Deleted");
 
-      posts.mutate();
+      const newUserPosts = hook.data.filter((post) => post.id !== id);
+      hook.mutate([...newUserPosts]);
     } catch (error) {
       console.log(error);
       if (error.response) return toast.error(error.response.data.error);
 
       toast.error(error.message);
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -67,10 +67,14 @@ export default function ({
             : "hidden"
         }`}
       >
-        <TrashIcon
-          onClick={handleDelete}
-          className="w-4 h-4 transition cursor-pointer hover:text-red-500"
-        />
+        {deleteLoading ? (
+          <Spinner size={6} />
+        ) : (
+          <TrashIcon
+            onClick={handleDelete}
+            className="w-5 h-5 transition cursor-pointer hover:text-red-500"
+          />
+        )}
       </div>
       <div className="flex h-auto justify-start">
         <div className="w-10 h-10 relative">
@@ -107,9 +111,7 @@ export default function ({
             <ArrowPathRoundedSquareIcon className="w-6 h-6 cursor-pointer bg-emerald-600 rounded-full px-1 py-1 text-white" />
             <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6 cursor-pointer bg-blue-600 rounded-full px-1 py-1 text-white" />
           </div>
-          <span className="text-twitter-text2 text-sm ml-2">
-            {likesIds.length + comments.length + retweets}
-          </span>
+          <span className="text-twitter-text2 text-sm ml-2">0</span>
         </div>
         <ul className="flex w-full justify-start gap-2">
           <li
@@ -130,18 +132,16 @@ export default function ({
           <li
             onClick={() => handleAction("RETWEET")}
             className={`w-1/3 duration-100 active:bg-twitter-500 justify-center inline-flex cursor-pointer gap-2 items-center border px-4 py-2 rounded-3xl ${
-              isRetweedted === true
-                ? "border-green-600"
-                : "border-twitter-text2"
+              isRetweeted === true ? "border-green-600" : "border-twitter-text2"
             }`}
           >
             <ArrowPathRoundedSquareIcon
               className={`hidden lg:block h-6 w-6 ${
-                isRetweedted === true ? "text-green-600" : "text-white"
+                isRetweeted === true ? "text-green-600" : "text-white"
               }`}
             />
             <span className="text-twitter-text1 text-sm select-none">
-              {isRetweedted === true ? <b>Retweeted</b> : "Retweet"}
+              {isRetweeted === true ? <b>Retweeted</b> : "Retweet"}
             </span>
           </li>
           <li

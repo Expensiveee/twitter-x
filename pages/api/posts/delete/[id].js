@@ -2,12 +2,12 @@ import serverAuth from "@libs/server-auth";
 import prisma from "@libs/prisma-client";
 
 export default async function handler(req, res) {
-  if (req.method !== "DELETE")
+  if (req.method === "GET")
     return res.status(405).json({ error: "Metdhod Not Allowed" });
 
   try {
-    const { id } = req.query;
     const currentUser = await serverAuth(req);
+    const { id } = req.query;
 
     const post = await prisma.post.findUnique({
       where: {
