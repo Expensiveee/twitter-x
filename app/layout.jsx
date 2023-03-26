@@ -13,11 +13,6 @@ import { Poppins } from "next/font/google";
 
 import "@styles/globals.css";
 
-export const metadata = {
-  title: "TwitterX",
-  description: "TwitterX, powered by Expensiveee",
-};
-
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "300", "500", "600", "700", "800"],
