@@ -39,15 +39,6 @@ export default function () {
     try {
       setIsLoading(true);
 
-      //Dont send same values
-      if (
-        name === currentUser.data?.name &&
-        bio === currentUser.data?.bio &&
-        avatar === currentUser.data?.avatar &&
-        banner === currentUser.data?.banner
-      )
-        return;
-
       await axios.patch("/api/user/edit", {
         name,
         bio,
