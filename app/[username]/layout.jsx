@@ -7,11 +7,26 @@ export async function generateMetadata({ params }) {
       `https://twitter-x.expensiveee.me/api/user/${params.username}`
     );
 
-    return { title: res.data.username, description: res.data.bio };
+    return {
+      title: res.data.username,
+      description: res.data.bio,
+      twitter: {
+        images: {
+          url: res.data.banner,
+          alt: "User Banner ",
+        },
+      },
+    };
   } catch (error) {
     return {
       title: "User Not Found",
       description: "T'as déjà K avec un 12 ?",
+      twitter: {
+        images: {
+          url: "/banner.jpg",
+          alt: "Default Banner ",
+        },
+      },
     };
   }
 }
