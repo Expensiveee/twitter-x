@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
           title: `${res.data?.username}'s profile on TwitterX`,
           description: res.data?.bio ?? "No Bio",
           card: "summary_large_image",
-          url: res.data?.banner ?? "/banner.jpg",
+          url: res.data?.banner ?? "banner.jpg",
           alt: "User Banner ",
         },
       },
@@ -26,8 +26,10 @@ export async function generateMetadata({ params }) {
       description: "T'as déjà K avec un 12 ?",
       twitter: {
         images: {
+          title: "User Not Found",
+          description: "T'as déjà K avec un 12 ?",
           card: "summary_large_image",
-          url: "/banner.jpg",
+          url: "banner.jpg",
           alt: "Default Banner ",
         },
       },
