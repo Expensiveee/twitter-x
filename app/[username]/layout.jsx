@@ -16,6 +16,12 @@ export async function generateMetadata({ params }) {
           `https://twitter-x.expensiveee.me/api/image/banner/${params.username}`,
         ],
       },
+      twitter: {
+        card: "summary",
+        images: [
+          `https://twitter-x.expensiveee.me/api/image/avatar/${params.username}`,
+        ],
+      },
     };
   } catch (error) {
     return {
