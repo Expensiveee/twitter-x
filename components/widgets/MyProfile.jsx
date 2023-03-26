@@ -17,7 +17,9 @@ export default function () {
   return (
     <div className="flex w-full flex-col items-center h-auto min-h-max bg-twitter-myProfile rounded-xl">
       {currentUserHook.isLoading ? (
-        <Spinner />
+        <div className="py-10">
+          <Spinner size={10} />
+        </div>
       ) : (
         <>
           <div className="w-full h-24 relative">
@@ -31,17 +33,17 @@ export default function () {
               <Avatar
                 src={currentUserHook.data?.avatar}
                 username={currentUserHook.data?.username}
-                className={`w-28 h-28 relative px-2 py-2 bg-twitter-myProfile`}
+                className={`px-2 py-2 rounded-full bg-twitter-myProfile`}
               />
             </div>
           </div>
-          <h1 className="mt-16 capitalize text-twitter-text1 text-xl font-bold">
+          <h1 className="mt-16 text-center capitalize text-twitter-text1 text-xl font-bold">
             {currentUserHook.data.name}
           </h1>
-          <h3 className="mt-1 text-sm lowercase text-twitter-text2">
+          <h3 className="mt-1 text-center text-sm text-twitter-text2">
             @{currentUserHook.data.username}
           </h3>
-          <h2 className="mt-4 text-md text-twitter-text1 mb-4">
+          <h2 className="mt-4 px-4 text-center text-sm text-twitter-text1 mb-4">
             {currentUserHook.data.bio || (
               <i className="text-neutral-300">No bio</i>
             )}

@@ -26,17 +26,12 @@ export default function RegisterModal() {
     try {
       setLoading(true);
 
-      const res = await axios.post("/api/register", {
+      await axios.post("/api/register", {
         email,
         password,
         name,
         username,
       });
-
-      if (res.data?.error) {
-        toast.error(res.data.error);
-        return;
-      }
 
       toast.success("Account Created");
       signIn("credentials", {
@@ -47,7 +42,9 @@ export default function RegisterModal() {
       registerModal.onClose();
     } catch (e) {
       console.log(e);
-      toast.error("Something went wrong");
+      if (error.response) return toast.error(error.response.data.error);
+
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

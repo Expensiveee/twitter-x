@@ -1,6 +1,9 @@
 "use client";
 import { Toaster } from "react-hot-toast";
 
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+
 import { SessionProvider } from "next-auth/react";
 
 import Navbar from "@components/Navbar";
@@ -19,6 +22,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+TimeAgo.addDefaultLocale(en);
 export default function RootLayout({ children, ...props }) {
   return (
     <SessionProvider>
@@ -26,7 +30,7 @@ export default function RootLayout({ children, ...props }) {
         lang="en"
         className={`${poppins.variable} bg-twitter-100 text-neutral-300`}
       >
-        <body className="flex font-poppins flex-col scrollbar-none overflow-y-auto max-w-7xl mx-auto px-8">
+        <body className="flex scroll-smooth font-poppins flex-col scrollbar-thin overflow-y-auto max-w-6xl mx-auto px-8">
           {/* Modals */}
           <LoginModal />
           <RegisterModal />

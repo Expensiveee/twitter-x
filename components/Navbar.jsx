@@ -45,7 +45,7 @@ export default function () {
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUserHook.isLoading || currentUserHook.data) {
+    if (!currentUserHook.isLoading || currentUserHook.data?.username) {
       toast.success(
         <div>
           Welcome back{" "}
@@ -56,7 +56,7 @@ export default function () {
         </div>
       );
     }
-  }, []);
+  }, [currentUserHook.isLoading]);
 
   const handelSignOut = () => {
     signOut();
@@ -67,7 +67,12 @@ export default function () {
     <nav className="sticky z-40 top-0 w-full mb-2 h-20 bg-twitter-100 flex justify-between">
       <div className="flex  items-center gap-4 w-1/4 select-none">
         <div onClick={() => router.push("/")} className="cursor-pointer">
-          <Image src="/logo/twitter-blue.svg" width="54" height="54" />
+          <Image
+            alt="Logo"
+            src="/logo/twitter-blue.svg"
+            width="54"
+            height="54"
+          />
         </div>
         <div className="flex w-64 h-8 rounded-lg bg-twitter-200 justify">
           <span className="inline-flex text-lg items-center text-gray-400 font-medium px-2">
@@ -109,23 +114,42 @@ export default function () {
           })}
         </ul>
         <div className="w-[1px] h-1/2 bg-gray-700"></div>
-        <div className="flex w-auto items-center justify-end gap-4 select-none">
+        <div className="flex  w-auto items-center justify-end gap-4 select-none">
           {!currentUserHook.isLoading && !currentUserHook.isError ? (
-            <div className="flex w-56 items-center bg-twitter-500 px-1 py-1 rounded-full">
-              <div className="w-[32px] h-[32px] px-4 relative">
-                <Avatar
-                  username={currentUserHook.data?.username}
-                  src={currentUserHook.data?.avatar}
+            <Link href={currentUserHook.data?.username}>
+              <div
+                className={`flex max-w-[180px] w-fit items-center transition cursor-pointer px-1 py-1 rounded-full ${
+                  pathname !== `/${currentUserHook.data?.username}`
+                    ? "hover:bg-gray-800 bg-twitter-500 text-twitter-400"
+                    : "bg-white text-black"
+                }`}
+              >
+                <div className="w-[32px] h-[32px] px-4 relative">
+                  <Avatar
+                    className={"rounded-full"}
+                    username={currentUserHook.data?.username}
+                    src={currentUserHook.data?.avatar}
+                  />
+                </div>
+                <span
+                  className={`w-full h-full capitalize truncate font-semibold text-sm  ml-2 ${
+                    pathname !== `/${currentUserHook.data?.username}`
+                      ? "hidden"
+                      : "block"
+                  } `}
+                >
+                  {currentUserHook.data?.username}
+                </span>
+                <ArrowDownOnSquareIcon
+                  onClick={handelSignOut}
+                  className={`w-8 h-8 mr-2 transition hover:text-red-500 cursor-pointer text-twitter-300 ${
+                    pathname !== `/${currentUserHook.data?.username}`
+                      ? "hidden"
+                      : "block"
+                  }`}
                 />
               </div>
-              <span className="w-full h-full capitalize truncate font-medium text-sm text-twitter-400 ml-2">
-                {currentUserHook.data?.name}
-              </span>
-              <ArrowDownOnSquareIcon
-                onClick={handelSignOut}
-                className="w-8 h-8 mr-2 transition hover:text-red-500 cursor-pointer text-gray-400"
-              />
-            </div>
+            </Link>
           ) : (
             <button
               onClick={loginModal.onOpen}

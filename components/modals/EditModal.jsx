@@ -56,7 +56,10 @@ export default function () {
 
       editModal.onClose();
     } catch (error) {
-      toast.error("Something went wrong");
+      console.log(error);
+      if (error.response) return toast.error(error.response.data.error);
+
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }

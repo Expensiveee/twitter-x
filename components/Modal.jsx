@@ -36,7 +36,7 @@ export default function ({
           flex 
           overflow-x-hidden 
           overflow-y-auto 
-          scrollbar-none
+          scrollbar-thin
           fixed 
           inset-0 
           z-50 

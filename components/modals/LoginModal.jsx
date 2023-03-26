@@ -8,11 +8,9 @@ import useRegiserModal from "@hooks/useRegisterModal";
 
 import Modal from "@components/Modal";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Router from "next/router";
 
 export default function LoginModal() {
-  const router = useRouter();
-
   const loginModal = useLoginModal();
   const registerModal = useRegiserModal();
 
@@ -36,7 +34,7 @@ export default function LoginModal() {
         return;
       }
 
-      router.replace("/");
+      Router.reload();
 
       toast.success("Logged in");
       loginModal.onClose();

@@ -10,17 +10,27 @@ export default function ({ className, src, username }) {
     router.push(`/${username}`);
   };
 
-  return (
-    <div
-      onClick={handleClick}
-      className={`cursor-pointer transition hover:opacity-90 w-full h-full`}
-    >
+  if (username && typeof username === "string") {
+    return (
       <Image
-        className={`rounded-full ${className}`}
+        alt="Avatar"
+        onClick={handleClick}
+        draggable={false}
+        className={`${className} select-none active:scale-95 cursor-pointer hover:opacity-80 transition`}
         src={src ?? "/avatar.png"}
         fill
         style={{ objectFit: "cover" }}
       />
-    </div>
+    );
+  }
+
+  return (
+    <Image
+      alt="Avatar"
+      className={className}
+      src={src ?? "/avatar.png"}
+      fill
+      style={{ objectFit: "cover" }}
+    />
   );
 }
