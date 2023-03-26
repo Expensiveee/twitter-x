@@ -76,7 +76,6 @@ export default function () {
         onChange={(i) => setBanner(i)}
         label="Upload profile banner"
       />
-      <span className="ml-2">Name</span>
       <input
         className="w-full ml-2 px-4 h-12 rounded bg-twitter-200 text-white text-md font-medium outline-none"
         placeholder="Name"
@@ -84,8 +83,6 @@ export default function () {
         value={name}
         disabled={isLoading}
       />
-      <span className="ml-2">Name</span>
-
       <input
         className="w-full ml-2 px-4 h-12 rounded bg-twitter-200 text-white text-md font-medium outline-none"
         placeholder="Bio"
