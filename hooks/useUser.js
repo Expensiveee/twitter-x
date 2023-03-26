@@ -9,6 +9,7 @@ const useUser = (username) => {
     username ? `user/${username}` : null,
     fetcher,
     {
+      shouldRetryOnError: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
       revalidateIfStale: true,
