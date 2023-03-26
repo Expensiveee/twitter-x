@@ -14,6 +14,9 @@ export default async function handler(req, res) {
     });
 
     const base64String = type === "avatar" ? user.avatar : user.banner;
+
+    if (!base64String) return res.status(404).json({ error: "Not found" });
+
     const base64 = base64String.replace(/^data:image\/\w+;base64,/, "");
     const buffer = Buffer.from(base64, "base64");
 
