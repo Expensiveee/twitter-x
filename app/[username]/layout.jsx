@@ -4,7 +4,7 @@ import axios from "axios";
 export async function generateMetadata({ params }) {
   try {
     const res = await axios.get(
-      `https//twitter-x.expensiveee.me/api/user/find/${params.username}`
+      `${process.env.NEXTAUTH_URL}/api/user/find/${params.username}`
     );
 
     return {
