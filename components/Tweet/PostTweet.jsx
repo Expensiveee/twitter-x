@@ -30,7 +30,7 @@ export default function ({}) {
     try {
       setLoading(true);
 
-      await axios.post("/api/posts", {
+      await axios.post("/api/posts/create", {
         body: tweetBody,
       });
       setTweetBody("");

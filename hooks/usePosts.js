@@ -5,7 +5,7 @@ import useSWR from "swr";
 import fetcher from "@libs/fetcher";
 
 const usePosts = (username) => {
-  const url = username ? `posts/${username}` : `posts/all`;
+  const url = username ? `posts/find/${username}` : `posts/all`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,

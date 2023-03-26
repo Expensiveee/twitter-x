@@ -6,7 +6,7 @@ import fetcher from "@libs/fetcher";
 
 const useUser = (username) => {
   const { data, error, isLoading, mutate } = useSWR(
-    username ? `user/${username}` : null,
+    username ? `user/find/${username}` : null,
     fetcher,
     {
       shouldRetryOnError: false,
