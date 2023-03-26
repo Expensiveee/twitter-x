@@ -12,7 +12,9 @@ export async function generateMetadata({ params }) {
       description: res.data.bio,
       twitter: {
         card: "summary_large_image",
-        images: [res.data.banner],
+        images: [
+          `https://twitter-x.expensiveee.me/api/avatar/${params.username}`,
+        ],
       },
     };
   } catch (error) {

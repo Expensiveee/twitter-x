@@ -14,11 +14,15 @@ export default async function handler(req, res) {
       },
     });
 
-    res.send(user.avatar);
+    let base64 = user.avatar.replace(/^data:image\/\w+;base64,/, "");
 
-    const avatar = Buffer.from(user.avatar, "base64");
+    let buffer = Buffer.from(base64, "base64");
 
-    res.send(avatar);
+    res.writeHead(200, {
+      "Content-Type": "image/png",
+      "Content-Length": buffer.length,
+    });
+    res.end(buffer);
   } catch (error) {
     console.log(error);
 
