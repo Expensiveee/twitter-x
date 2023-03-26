@@ -23,16 +23,14 @@ export default function () {
           <div className="w-full h-24 relative">
             <Banner
               className={"rounded-t-xl"}
-              bgColor={"bg-twitter-myProfile"}
-              withAvatar
-              avatarSize={"w-32 h-32"}
-              username={currentUserHook.data.username}
+              src={currentUserHook.data?.banner}
             />
             <div
               className={`w-28 h-28 rounded-full absolute top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2 `}
             >
               <Avatar
-                username={currentUserHook.data.username}
+                src={currentUserHook.data?.avatar}
+                username={currentUserHook.data?.username}
                 className={`w-28 h-28 relative px-2 py-2 bg-twitter-myProfile`}
               />
             </div>

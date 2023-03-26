@@ -23,7 +23,11 @@ export default function ({
   return (
     <div className="flex px-6 py-4 gap-4 w-full bg-twitter-myProfile rounded-2xl">
       <div className="flex h-auto justify-start">
-        <img className="w-[56px] h-[56px] rounded-full" src={avatar} alt="" />
+        <img
+          className="w-[56px] h-[56px] rounded-full"
+          src={avatar}
+          alt="Avatar"
+        />
       </div>
       <div className="flex flex-col w-full">
         <div className="flex justify-start items-center">

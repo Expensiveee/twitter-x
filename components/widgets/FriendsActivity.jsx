@@ -14,7 +14,11 @@ export default function () {
           </h2>
         </li>
         <li className="flex flex-full items-center">
-          <img className="w-8 h-8 rounded-full" src="/avatar-1.png" alt="" />
+          <img
+            className="w-8 h-8 rounded-full"
+            src="/avatar-1.png"
+            alt="Avatar"
+          />
           <h2 className="text-twitter-400 ml-2 text-sm">
             <span className="font-bold">Pause_cafee</span> s'est branlé sur
             Silvester

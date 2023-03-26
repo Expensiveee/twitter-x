@@ -9,7 +9,7 @@ import Avatar from "@components/users/Avatar";
 
 export default function WhoToFollow() {
   const currentUserHook = useCurrentUser();
-  const usersHook = useUsers(3);
+  const usersHook = useUsers();
 
   const loginModal = useLoginModal();
 
@@ -28,7 +28,7 @@ export default function WhoToFollow() {
       {usersHook.isLoading ? (
         <Spinner />
       ) : (
-        <div className="w-full h-full flex flex-col scrollbar-thin pr-1 pb-4 scrollbar-thumb-twitter-text2 scrollbar-track-gray-700 scroll-smooth overflow-auto">
+        <div className="w-full h-full flex flex-col scrollbar-thin scrollbar-thumb-twitter-text2 scrollbar-track-gray-700 scroll-smooth overflow-auto">
           {usersHook.data?.map((user, index) => {
             return (
               <div
@@ -37,7 +37,7 @@ export default function WhoToFollow() {
               >
                 <div className="flex ml-2">
                   <div className="w-10 h-10 relative">
-                    <Avatar username={user?.username} />
+                    <Avatar username={user.username} src={user.avatar} />
                   </div>
                   <div className="flex flex-col ml-2">
                     <h1 className="text-md truncate max-w-[120px] text-twitter-text1">

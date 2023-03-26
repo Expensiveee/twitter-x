@@ -1,18 +1,23 @@
 "use client";
 
+import { toast } from "react-hot-toast";
+
 import { ShareIcon, CalendarDaysIcon } from "@heroicons/react/20/solid";
 
 import useUser from "@hooks/useUser";
 import useCurrentUser from "@hooks/useCurrentUser";
+import useEditModal from "@hooks/useEditModal";
 
 import Spinner from "@components/Spinner";
 import Banner from "@components/users/Banner";
 import Avatar from "@components/users/Avatar";
-import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-export default function UserProfile({ params }) {
+export default function ({ params }) {
   const userHook = useUser(params?.username);
   const currentUser = useCurrentUser();
+
+  const editModal = useEditModal();
 
   const handleGoBackOnError = () => {
     window.history.back();
@@ -24,10 +29,11 @@ export default function UserProfile({ params }) {
     toast.success("Copied profile link to clipboard");
   };
 
-  if (userHook.isLoading) {
+  if (userHook.isLoading || currentUser.isLoading) {
     return <Spinner />;
   }
 
+  //Error Page for when the user isn't found
   if (userHook.isError) {
     return (
       <div className="flex flex-col gap-4  w-full items-center justify-center mt-20">
@@ -47,11 +53,7 @@ export default function UserProfile({ params }) {
   return (
     <div className="flex flex-col w-full h-96 ">
       <div className="w-full h-40">
-        <Banner
-          custom
-          className={"rounded-t-xl"}
-          username={userHook.data.username}
-        />
+        <Banner className={"rounded-t-xl"} src={userHook.data?.banner} />
         <h1>
           {userHook.data.username} {userHook.data.isVerified && <Verified />}
         </h1>
@@ -81,11 +83,12 @@ export default function UserProfile({ params }) {
           <div className="w-32 h-32 relative rounded-full">
             <Avatar
               className={"px-2 py-2 bg-twitter-100"}
+              src={userHook.data.avatar}
               username={userHook.data.username}
             />
           </div>
         </div>
-        <div className="flex w-full justify-arround items-center gap-4">
+        <div className="flex w-full justify-evenly items-center gap-4">
           <div className="flex flex-col w-auto items-center justify-center">
             <h2 className="font-medium">Joined</h2>
             <span className="w-full flex h-auto items-center justify-center text-sm text-white">
@@ -94,24 +97,31 @@ export default function UserProfile({ params }) {
             </span>
           </div>
           <div className="flex flex-col w-auto items-center justify-center">
-            <button className="w-fit px-6 py-3 hover:opacity-90 transition bg-white text-black font-medium cursor-pointer rounded-full">
-              {currentUser.data?.id === userHook.data.id
-                ? "Edit Profile"
-                : "Follow"}
-            </button>
+            {currentUser.data?.id !== userHook.data.id ? (
+              <button className="w-fit flex px-6 py-3 hover:opacity-90 transition bg-twitter-300 text-white font-medium cursor-pointer rounded-full">
+                Follow
+              </button>
+            ) : (
+              <button
+                onClick={editModal.onOpen}
+                className="w-fit items-center flex px-6 py-3 hover:opacity-90 transition bg-twitter-300 text-white font-medium cursor-pointer rounded-full"
+              >
+                Edit Profile
+              </button>
+            )}
           </div>
           <div className="flex flex-col w-auto items-center justify-center">
-            {currentUser.data?.id === userHook.data.id ? (
+            {currentUser.data?.id !== userHook.data.id ? (
+              <button className="w-fit flex px-6 py-3 hover:opacity-90 transition bg-twitter-300 text-white font-medium cursor-pointer rounded-full">
+                Message
+              </button>
+            ) : (
               <button
                 onClick={handleCopyProfileLink}
                 className="w-fit items-center flex px-6 py-3 hover:opacity-90 transition bg-twitter-300 text-white font-medium cursor-pointer rounded-full"
               >
                 <ShareIcon className="w-4 h-4 mr-2" />
                 Copy profile link
-              </button>
-            ) : (
-              <button className="w-fit flex px-6 py-3 hover:opacity-90 transition bg-twitter-300 text-white font-medium cursor-pointer rounded-full">
-                Message
               </button>
             )}
           </div>

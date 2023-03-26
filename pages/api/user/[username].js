@@ -1,13 +1,14 @@
 import prisma from "@libs/prisma-client";
 
 export default async function handler(req, res) {
-  if (req.method !== "GET") return res.json({ error: "Method Not Allowed" });
+  if (req.method !== "GET")
+    return res.status(405).json({ error: "Method Not Allowed" });
 
   try {
     const { username } = req.query;
 
     if (!username || typeof username !== "string") {
-      return res.json({ error: "Invalid user id" });
+      return res.status(500).json({ error: "Invalid user id" });
     }
 
     const user = await prisma.user.findUnique({
@@ -17,7 +18,7 @@ export default async function handler(req, res) {
     });
 
     if (!user) {
-      return res.json({ error: "User not found" });
+      return res.status(500).json({ error: "User not found" });
     }
 
     const followersCount = await prisma.user.count({
@@ -32,6 +33,6 @@ export default async function handler(req, res) {
   } catch (error) {
     console.log(error);
 
-    return res.json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: error.message });
   }
 }

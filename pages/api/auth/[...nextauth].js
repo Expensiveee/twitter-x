@@ -5,16 +5,16 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@libs/prisma-client";
 
-const authOptions = {
+export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
-      name: "credentials",
-      credentialsl: {
-        email: { label: "email", type: "text" },
-        email: { label: "password", type: "password" },
+      name: "Credentials",
+      credentials: {
+        username: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials.email || !credentials.password) {
           throw new Error("Email and password required");
         }
@@ -47,6 +47,4 @@ const authOptions = {
     secret: process.env.NEXTAUTH_JWT_SECRET,
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
-
-export default NextAuth(authOptions);
+});

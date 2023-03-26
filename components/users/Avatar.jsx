@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function ({ className, username }) {
+export default function ({ className, src, username }) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -17,7 +17,7 @@ export default function ({ className, username }) {
     >
       <Image
         className={`rounded-full ${className}`}
-        src={"/avatar-2.png"}
+        src={src ?? "/avatar.png"}
         fill
         style={{ objectFit: "cover" }}
       />

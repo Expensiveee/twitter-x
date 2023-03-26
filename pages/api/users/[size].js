@@ -29,8 +29,6 @@ export default async function handler(req, res) {
 
     res.json(users);
   } catch (error) {
-    console.log(error);
-
-    return res.json({ error: "Internal Server Error" });
+    return res.status(400).json({ error: error.message });
   }
 }

@@ -16,6 +16,7 @@ import Avatar from "@components/users/Avatar";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 
 const menuItems = [
   {
@@ -42,6 +43,20 @@ export default function () {
 
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!currentUserHook.isLoading || currentUserHook.data) {
+      toast.success(
+        <div>
+          Welcome back{" "}
+          <span className="font-semibold capitalize">
+            {currentUserHook.data?.username}
+          </span>{" "}
+          !
+        </div>
+      );
+    }
+  }, []);
 
   const handelSignOut = () => {
     signOut();
@@ -97,17 +112,13 @@ export default function () {
         <div className="flex w-auto items-center justify-end gap-4 select-none">
           {!currentUserHook.isLoading && !currentUserHook.isError ? (
             <div className="flex w-56 items-center bg-twitter-500 px-1 py-1 rounded-full">
-              {/* <img
-                className="rounded"
-                src="/avatar.png"
-                width={32}
-                height={32}
-                alt="User's Avatar"
-              /> */}
               <div className="w-[32px] h-[32px] px-4 relative">
-                <Avatar username={currentUserHook.data?.username} />
+                <Avatar
+                  username={currentUserHook.data?.username}
+                  src={currentUserHook.data?.avatar}
+                />
               </div>
-              <span className="w-full h-full capitalize truncate font-semibold text-md text-twitter-400 ml-2">
+              <span className="w-full h-full capitalize truncate font-medium text-sm text-twitter-400 ml-2">
                 {currentUserHook.data?.name}
               </span>
               <ArrowDownOnSquareIcon
