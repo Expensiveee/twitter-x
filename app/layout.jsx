@@ -12,7 +12,6 @@ import EditModal from "@components/modals/EditModal";
 import { Poppins } from "next/font/google";
 
 import "@styles/globals.css";
-import Header from "@components/Header";
 
 export const metadata = {
   title: "TwitterX",
