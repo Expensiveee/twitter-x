@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
   } catch (error) {
     return {
       title: "User Not Found",
-      description: "T'as déjà K avec un 12 ?",
+      description: "No Bio",
       twitter: {
         card: "summary_large_image",
         images: ["/banner.jpg"],
