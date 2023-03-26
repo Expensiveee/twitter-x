@@ -25,18 +25,9 @@ export async function generateMetadata({ params }) {
     return {
       title: "User Not Found",
       description: "T'as déjà K avec un 12 ?",
-      og: {
-        images: {
-          url: "https://twitter-x.expensiveee.me/banner.jpg",
-        },
-      },
       twitter: {
-        images: {
-          title: "User Not Found",
-          description: "T'as déjà K avec un 12 ?",
-          card: "summary_large_image",
-          url: "https://twitter-x.expensiveee.me/banner.jpg",
-        },
+        card: "summary_large_image",
+        images: ["https://twitter-x.expensiveee.me/banner.jpg"],
       },
     };
   }
