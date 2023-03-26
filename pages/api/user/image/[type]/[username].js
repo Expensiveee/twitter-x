@@ -1,12 +1,11 @@
 import prisma from "@libs/prisma-client";
 
-//Create a route that will return the avatar of a user from base64 to img
 export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ error: "Metdhod Not Allowed" });
 
   try {
-    const { username } = req.query;
+    const { type, username } = req.query;
 
     const user = await prisma.user.findUnique({
       where: {
@@ -14,9 +13,9 @@ export default async function handler(req, res) {
       },
     });
 
-    let base64 = user.avatar.replace(/^data:image\/\w+;base64,/, "");
-
-    let buffer = Buffer.from(base64, "base64");
+    const base64String = type === "avatar" ? user.avatar : user.banner;
+    const base64 = base64String.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(base64, "base64");
 
     res.writeHead(200, {
       "Content-Type": "image/png",

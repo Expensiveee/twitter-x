@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
       twitter: {
         card: "summary_large_image",
         images: [
-          `https://twitter-x.expensiveee.me/api/avatar/${params.username}`,
+          `https://twitter-x.expensiveee.me/api/image/banner/${params.username}`,
         ],
       },
     };
