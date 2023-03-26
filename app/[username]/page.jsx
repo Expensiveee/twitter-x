@@ -59,15 +59,11 @@ export default function ({ params }) {
         <div className="flex w-full justify-center items-center text-sm gap-4">
           <div className="flex flex-col w-auto items-center justify-center">
             <h2 className="font-medium">Followers</h2>
-            <span className="text-xs text-white">
-              {userHook.data.followersCount}
-            </span>
+            <span className="text-xs text-white">0</span>
           </div>
           <div className="flex flex-col w-auto items-center justify-center">
             <h2 className="font-medium">Following</h2>
-            <span className="text-xs text-white">
-              {userHook.data.followersCount}
-            </span>
+            <span className="text-xs text-white">0</span>
           </div>
           <div className="flex flex-col w-auto items-center justify-center">
             <h2 className="font-medium">Posts</h2>
