@@ -23,7 +23,7 @@ const poppins = Poppins({
 });
 
 TimeAgo.addDefaultLocale(en);
-export default function RootLayout({ children, ...props }) {
+export default function RootLayout({ children }) {
   return (
     <SessionProvider>
       <html
