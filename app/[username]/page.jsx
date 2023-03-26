@@ -1,9 +1,6 @@
 "use client";
-
 import { toast } from "react-hot-toast";
 import { ShareIcon, CalendarDaysIcon } from "@heroicons/react/20/solid";
-
-import Head from "next/head";
 
 import useUser from "@hooks/useUser";
 import useCurrentUser from "@hooks/useCurrentUser";
@@ -15,11 +12,15 @@ import Banner from "@components/users/Banner";
 import Avatar from "@components/users/Avatar";
 import Tweet from "@components/Tweet/Tweet";
 import WhoToFollow from "@components/widgets/WhoToFollow";
+import axios from "axios";
 
 export async function generateMetadata({ params }) {
-  const userHook = useUser(params?.username);
+  const res = await axios.get(`/api/user/${params.username}`);
 
-  return { title: userHook?.data.username, description: userHook?.data.bio };
+  if (!res.ok)
+    return { title: "User Not Found", description: "T'as déjà K avec un 12 ?" };
+
+  return { title: res.data.username, description: res.data.bio };
 }
 
 export default function ({ params }) {
