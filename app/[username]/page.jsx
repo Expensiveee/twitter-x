@@ -1,4 +1,3 @@
-"use client";
 import { toast } from "react-hot-toast";
 import { ShareIcon, CalendarDaysIcon } from "@heroicons/react/20/solid";
 
