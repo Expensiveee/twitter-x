@@ -30,7 +30,7 @@ export default function RootLayout({ children, ...props }) {
         lang="en"
         className={`${poppins.variable} bg-twitter-100 text-neutral-300`}
       >
-        <body className="flex scroll-smooth font-poppins flex-col scrollbar-thin overflow-y-auto max-w-6xl mx-auto px-8">
+        <body className="flex scroll-smooth font-poppins flex-col scrollbar-thin overflow-y-auto max-w-7xl mx-auto px-8">
           {/* Modals */}
           <LoginModal />
           <RegisterModal />
