@@ -45,7 +45,7 @@ export default function () {
   const router = useRouter();
 
   useEffect(() => {
-    if (!currentUserHook.isLoading || currentUserHook.data?.username) {
+    if (!currentUserHook.isLoading || currentUserHook.data.username) {
       toast.success(
         <div>
           Welcome back{" "}
