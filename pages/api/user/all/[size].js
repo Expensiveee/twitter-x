@@ -1,6 +1,7 @@
 import prisma from "@libs/prisma-client";
 
 export default async function handler(req, res) {
+  console.log("USER ALL");
   try {
     const { size } = req.query;
 

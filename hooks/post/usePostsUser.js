@@ -8,8 +8,7 @@ const usePostsUser = (username, size) => {
   const url = username && size ? `posts/find/${username}/${size}` : null;
 
   const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
-    revalidateOnMount: true,
-
+    revalidateOnMount: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
     shouldRetryOnError: false,

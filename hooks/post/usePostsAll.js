@@ -10,7 +10,7 @@ const usePostsAll = (size) => {
   const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
-    revalidateOnMount: true,
+    revalidateOnMount: false,
   });
 
   return {
