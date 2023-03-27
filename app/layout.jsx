@@ -16,13 +16,21 @@ import { Poppins } from "next/font/google";
 
 import "@styles/globals.css";
 
+TimeAgo.addDefaultLocale(en);
+
+import * as Sentry from "@sentry/nextjs";
+
+Sentry.init({
+  dsn: "https://894adddcfdac43b08df976f60d420d9f@o4504910770536448.ingest.sentry.io/4504910772305920",
+  tracesSampleRate: 1.0,
+});
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "300", "500", "600", "700", "800"],
   variable: "--font-poppins",
 });
 
-TimeAgo.addDefaultLocale(en);
 export default function RootLayout({ children }) {
   return (
     <SessionProvider>

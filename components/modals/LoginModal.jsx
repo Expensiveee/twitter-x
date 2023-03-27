@@ -8,9 +8,10 @@ import useModalRegister from "@hooks/modal/useModalRegister";
 
 import Modal from "@components/Modal";
 import { signIn } from "next-auth/react";
-import Router from "next/router";
+import useUserCurrent from "@hooks/user/useUserCurrent";
 
 export default function LoginModal() {
+  const currentUser = useUserCurrent();
   const loginModal = useModalLogin();
   const registerModal = useModalRegister();
 
@@ -34,12 +35,12 @@ export default function LoginModal() {
         return;
       }
 
-      Router.reload();
-
-      toast.success("Logged in");
       loginModal.onClose();
+      toast.success("Logged in");
+      currentUser.mutate();
     } catch (e) {
-      console.log(e);
+      console.log("FROM LOGIN: ", e);
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }

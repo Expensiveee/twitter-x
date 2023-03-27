@@ -4,18 +4,16 @@ import useSWR from "swr";
 
 import fetcher from "@libs/fetcher";
 
-const usePostsUser = (username) => {
-  const { data, error, isLoading, mutate } = useSWR(
-    `posts/find/${username}`,
-    fetcher,
-    {
-      revalidateOnMount: true,
+const usePostsUser = (username, size) => {
+  const url = username && size ? `posts/find/${username}/${size}` : null;
 
-      revalidateOnFocus: false,
-      revalidateOnReconnect: true,
-      shouldRetryOnError: false,
-    }
-  );
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
+    revalidateOnMount: true,
+
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
+    shouldRetryOnError: false,
+  });
 
   return {
     data,

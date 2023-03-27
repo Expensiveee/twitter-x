@@ -5,7 +5,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Metdhod Not Allowed" });
 
   try {
-    const { username } = req.query;
+    const { username, size } = req.query;
+
+    const sizeNumber = parseInt(size);
+    if (!sizeNumber || typeof sizeNumber !== "number") {
+      return res.status(405).json({ error: "Invalid size" });
+    }
 
     const posts = await prisma.post.findMany({
       where: {

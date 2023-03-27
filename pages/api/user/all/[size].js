@@ -4,22 +4,11 @@ export default async function handler(req, res) {
   try {
     const { size } = req.query;
 
-    if (!size || typeof size !== "string") {
+    const sizeNumber = parseInt(size);
+    if (!sizeNumber || typeof sizeNumber !== "number") {
       return res.status(405).json({ error: "Invalid size" });
     }
 
-    // If size is "all", return all users
-    if (size === "-1") {
-      const allUsers = await prisma.user.findMany({
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
-
-      return res.json(allUsers);
-    }
-
-    // If size is not "all", return users based on size
     const users = await prisma.user.findMany({
       take: parseInt(size),
       orderBy: {

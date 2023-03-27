@@ -1,7 +1,5 @@
 "use client";
 
-import axios from "axios";
-
 import Tweet from "@components/Tweet/Tweet";
 import PostTweet from "@components/Tweet/PostTweet";
 import MyProfile from "@components/widgets/MyProfile";

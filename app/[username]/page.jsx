@@ -1,8 +1,6 @@
 "use client";
 import { toast } from "react-hot-toast";
 import { ShareIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import axios from "axios";
 
 import useUser from "@hooks/user/useUser";
 import useUserCurrent from "@hooks/user/useUserCurrent";
@@ -15,9 +13,9 @@ import Avatar from "@components/users/Avatar";
 import Tweet from "@components/Tweet/Tweet";
 
 export default function ({ params }) {
-  const [deleteLoading, setDeleteLoading] = useState(false);
   const user = useUser(params?.username);
-  const userPosts = usePostsUser(user.data?.username);
+
+  const userPosts = usePostsUser(user.data?.username, 30);
 
   const currentUser = useUserCurrent();
 
@@ -99,7 +97,7 @@ export default function ({ params }) {
             )}
           </div>
           <div className="flex flex-col w-auto items-center justify-center">
-            {user.data?.id !== currentUser.data.id ? (
+            {user.data?.id !== currentUser.data?.id ? (
               <button className="w-fit text-sm  flex px-3 py-2 hover:opacity-90 transition bg-twitter-300 text-white font-medium cursor-pointer rounded-full">
                 Message
               </button>

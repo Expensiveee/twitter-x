@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function WhoToFollow() {
   const currentcurrentUser = useUserCurrent();
-  const usersAll = useUsersAll(4);
+  const usersAll = useUsersAll(3);
 
   const loginModal = useModalLogin();
 

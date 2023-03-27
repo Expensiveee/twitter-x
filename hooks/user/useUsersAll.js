@@ -3,8 +3,8 @@ import useSWR from "swr";
 
 import fetcher from "@libs/fetcher";
 
-const useUsers = (size) => {
-  const url = size ? `user/all/${size}` : "user/all";
+const useUsersAll = (size) => {
+  const url = size ? `user/all/${size}` : null;
 
   const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
     revalidateOnFocus: false,
@@ -19,4 +19,4 @@ const useUsers = (size) => {
   };
 };
 
-export default useUsers;
+export default useUsersAll;
