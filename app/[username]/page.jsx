@@ -15,7 +15,7 @@ import Tweet from "@components/Tweet/Tweet";
 export default function ({ params }) {
   const user = useUser(params?.username);
 
-  const userPosts = usePostsUser(user.data?.username, 30);
+  const userPosts = usePostsUser(user.data?.username, 5);
 
   const currentUser = useUserCurrent();
 
